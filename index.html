@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>RiskRewardSLTPMaster_v4.73 ネオンマニュアル</title>
+  <title>RiskRewardSLTPMaster_v5.00 完全マニュアル</title>
   <style>
     :root {
       --bg-main: #05060b;
@@ -11,6 +11,7 @@
       --accent-pink: #ff2ef5;
       --accent-purple: #a020f0;
       --accent-yellow: #ffe066;
+      --accent-orange: #ff8c42;
       --text-main: #e5f7ff;
       --text-muted: #7f92b3;
       --border-soft: rgba(0, 255, 255, 0.18);
@@ -61,14 +62,14 @@
     }
 
     h1 {
-      font-size: 1.9rem;
+      font-size: 2.1rem;
       margin: 0 0 24px;
       color: var(--accent-cyan);
       text-shadow: var(--shadow-neon);
     }
 
     h1::after {
-      content: " // RISK-REWARD SL/TP MASTER v4.73";
+      content: " // v5.00 SPREAD-AWARE";
       font-size: 0.72rem;
       color: var(--accent-pink);
       margin-left: 8px;
@@ -76,7 +77,7 @@
     }
 
     h2 {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       margin: 32px 0 12px;
       color: var(--accent-yellow);
       border-bottom: 1px solid rgba(0, 246, 255, 0.3);
@@ -84,9 +85,17 @@
     }
 
     h3 {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       margin: 20px 0 8px;
       color: var(--accent-cyan);
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      margin: 16px 0 6px;
+      color: var(--accent-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     p {
@@ -116,7 +125,7 @@
 
     pre {
       font-family: var(--mono);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       background: radial-gradient(circle at 0 0, rgba(0, 246, 255, 0.16), transparent 60%),
                   rgba(1, 8, 20, 0.92);
       padding: 12px 14px;
@@ -138,7 +147,7 @@
     }
 
     .frame {
-      max-width: 1040px;
+      max-width: 1100px;
       margin: 0 auto;
       background: linear-gradient(145deg,
               rgba(1, 10, 25, 0.96),
@@ -223,6 +232,22 @@
       color: var(--accent-pink);
     }
 
+    .highlight-box {
+      border: 2px solid var(--accent-orange);
+      background: linear-gradient(135deg,
+                  rgba(255, 140, 66, 0.12),
+                  rgba(255, 46, 245, 0.06));
+      padding: 10px 14px;
+      margin: 14px 0;
+      border-radius: 8px;
+      box-shadow: 0 0 14px rgba(255, 140, 66, 0.4);
+    }
+
+    .highlight-box strong {
+      color: var(--accent-orange);
+      font-size: 1.05em;
+    }
+
     ul, ol {
       margin: 6px 0 6px 1.4em;
     }
@@ -300,9 +325,14 @@
       color: var(--accent-yellow);
     }
 
+    .chip.orange {
+      border-color: rgba(255, 140, 66, 0.8);
+      color: var(--accent-orange);
+    }
+
     .toc {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 10px;
       margin: 10px 0 4px;
     }
@@ -360,6 +390,20 @@
       color: var(--accent-cyan);
     }
 
+    .version-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: linear-gradient(135deg, rgba(255, 46, 245, 0.3), rgba(160, 32, 240, 0.3));
+      border: 1px solid var(--accent-pink);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--accent-pink);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 10px rgba(255, 46, 245, 0.4);
+      margin-left: 8px;
+    }
+
     .footer {
       margin-top: 14px;
       font-size: 0.75rem;
@@ -376,313 +420,821 @@
       .frame {
         padding: 18px 14px 24px;
       }
+      h1 {
+        font-size: 1.6rem;
+      }
+      h1::after {
+        display: block;
+        margin: 8px 0 0 0;
+      }
     }
   </style>
 </head>
 <body>
 <div class="frame">
-  <div class="tagline">NEO-TOKYO TRADE SUITE</div>
-  <h1>RiskRewardSLTPMaster_v4.73 使用マニュアル</h1>
+  <div class="tagline">ADVANCED RISK MANAGEMENT SYSTEM</div>
+  <h1>RiskRewardSLTPMaster <span class="version-badge">v5.00</span></h1>
 
   <div class="chip-row">
-    <div class="chip">Auto Risk Management</div>
-    <div class="chip pink">RR FIXED SL/TP</div>
-    <div class="chip yellow">One-Click Entry</div>
+    <div class="chip">Spread-Adjusted RR</div>
+    <div class="chip pink">Auto Risk Calculate</div>
+    <div class="chip yellow">Real-time Label Display</div>
+    <div class="chip orange">Manual Lot Mode</div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🎯 v5.00 主要アップデート</strong>
+    <ul style="margin: 8px 0 4px 1.2em;">
+      <li><strong>スプレッド込みRR計算</strong>：成行注文時、スプレッドを考慮した正確なリスクリワード比を実現</li>
+      <li><strong>手動ロットモード追加</strong>：自動リスク計算をOFFにして、固定ロットでの運用が可能に</li>
+      <li><strong>チャート上ラベル表示</strong>：想定損失額・利益額・ロット・RRをチャート上に視覚的に表示</li>
+      <li><strong>パネル表示強化</strong>：スプレッド・リスクモード・管理状況をリアルタイム表示</li>
+    </ul>
   </div>
 
   <div class="section" id="toc">
-    <h2>0. INDEX</h2>
+    <h2>0. 目次 // INDEX</h2>
     <div class="toc">
       <div class="toc-item" onclick="location.hash='#overview'">
         <span class="toc-label">SECTION 1</span>
-        <span class="toc-title">EAの概要</span>
+        <span class="toc-title">EA概要と主要機能</span>
       </div>
       <div class="toc-item" onclick="location.hash='#install'">
         <span class="toc-label">SECTION 2</span>
-        <span class="toc-title">導入とセットアップ</span>
+        <span class="toc-title">インストール手順</span>
       </div>
       <div class="toc-item" onclick="location.hash='#params'">
         <span class="toc-label">SECTION 3</span>
-        <span class="toc-title">パラメータ詳細</span>
+        <span class="toc-title">パラメータ完全ガイド</span>
       </div>
-      <div class="toc-item" onclick="location.hash='#panel'">
+      <div class="toc-item" onclick="location.hash='#ui'">
         <span class="toc-label">SECTION 4</span>
-        <span class="toc-title">パネルとUI</span>
+        <span class="toc-title">UI構成とパネル解説</span>
       </div>
-      <div class="toc-item" onclick="location.hash='#market-flow'">
+      <div class="toc-item" onclick="location.hash='#market'">
         <span class="toc-label">SECTION 5</span>
-        <span class="toc-title">成行エントリー手順</span>
+        <span class="toc-title">成行エントリー完全フロー</span>
       </div>
       <div class="toc-item" onclick="location.hash='#pending'">
         <span class="toc-label">SECTION 6</span>
-        <span class="toc-title">指値・ポジション管理</span>
+        <span class="toc-title">指値注文とポジション管理</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#spread'">
+        <span class="toc-label">SECTION 7</span>
+        <span class="toc-title">スプレッド込みRR計算の詳細</span>
       </div>
       <div class="toc-item" onclick="location.hash='#examples'">
-        <span class="toc-label">SECTION 7</span>
-        <span class="toc-title">設定例と運用ヒント</span>
+        <span class="toc-label">SECTION 8</span>
+        <span class="toc-title">運用例とベストプラクティス</span>
       </div>
     </div>
   </div>
 
   <div class="section" id="overview">
-    <h2>1. EAの概要</h2>
+    <h2>1. EA概要と主要機能 // OVERVIEW</h2>
+    
+    <h3>1-1. 基本コンセプト</h3>
     <p>
-      本EAは「ストップロス距離 × リスクリワード比率 × 口座リスク％」から、SL/TPとロットを自動で組み上げるリスク管理特化型エンジンです。[file:1]
+      <code>RiskRewardSLTPMaster v5.00</code> は、トレーダーが設定したリスク管理ルールを自動的に実行する次世代型リスク管理EAです。
+      口座残高、ストップロス距離、リスクリワード比率から、最適なロットサイズとSL/TP価格を自動計算し、成行・指値の両方に対応します。
     </p>
+
+    <h3>1-2. 主要機能</h3>
     <ul>
-      <li>FX通貨ペア、インデックス、ゴールド/シルバー（XAU/XAG）を判別し、銘柄に最適化されたSL距離を自動計算します。[file:1]</li>
-      <li>口座残高とRiskPercentから許容損失額を算出し、CalcOptimalLotで適正ロットを逆算します。[file:1]</li>
-      <li>チャート上のBUY/SELLボタンとSL/TPラインから、損失額・利益額・RR・ロットをリアルタイム表示します。[file:1]</li>
-      <li>指値注文と既存ポジションのSL/TP・ロットを監視し、RRとリスク％がブレないよう自動修正します。[file:1]</li>
+      <li><strong>スプレッド込みRR計算</strong>：成行注文時、BuyならAsk-SL、SellならSL-Bidの実距離をリスクとして計算し、正確なRRを維持します。</li>
+      <li><strong>自動リスク計算（ON/OFF切替）</strong>：
+        <ul>
+          <li>ON時：<code>口座残高 × RiskPercent</code> から逆算した最適ロットを自動計算</li>
+          <li>OFF時：<code>ManualLotSize</code> で指定した固定ロットを使用</li>
+        </ul>
+      </li>
+      <li><strong>リアルタイムラベル表示</strong>：チャート上にTP金額（+額）、SL金額（-額）、ロット/RR情報を表示</li>
+      <li><strong>ワンクリック成行注文</strong>：BUY/SELLボタンでライン表示、EXEボタンで即座にエントリー</li>
+      <li><strong>指値注文の自動管理</strong>：SL/TP未設定の指値注文を検出し、自動でSL/TPとロットを最適化</li>
+      <li><strong>マルチシンボル対応</strong>：FX、ゴールド/シルバー、インデックスを自動判別し、最適なPip値を適用</li>
     </ul>
+
     <div class="note">
       <strong>想定ユーザー：</strong>
-      「毎回電卓を叩かずに、常に口座残高の〇％リスク＆RR固定でトレードしたい裁量トレーダー」。[file:1]
+      「毎回手動でロット計算をするのが面倒」「常に一定のリスク％とRRでトレードしたい」裁量トレーダー向けに設計されています。
     </div>
   </div>
 
   <div class="section" id="install">
-    <h2>2. 導入とセットアップ</h2>
+    <h2>2. インストール手順 // INSTALLATION</h2>
 
     <h3>2-1. ファイル配置</h3>
     <ol>
-      <li>MT5を起動し、<code>ファイル &gt; データフォルダを開く</code> をクリック。</li>
-      <li><code>MQL5/Experts</code> フォルダを開き、<code>RiskRewardSLTPMaster_v4.73.mq5</code> をコピーします。[file:1]</li>
-      <li>MetaEditorでコンパイルするか、MT5を再起動してEAリストを更新します。</li>
+      <li>MT5を起動し、<code>ファイル → データフォルダを開く</code> をクリック</li>
+      <li><code>MQL5/Experts</code> フォルダを開く</li>
+      <li><code>RiskRewardSLTPMaster_v5.00.mq5</code> をこのフォルダにコピー</li>
+      <li>MetaEditorで開いてコンパイル（F7キー）、またはMT5を再起動してEAリストを更新</li>
     </ol>
 
     <h3>2-2. チャートへの適用</h3>
     <ol>
-      <li>ナビゲータ ＞ エキスパートアドバイザ から、本EAを目的のシンボルチャートへドラッグ＆ドロップ。</li>
-      <li>「自動売買を許可する」にチェックを入れ、必要に応じてアルゴリズム取引も有効化。</li>
-      <li>パラメータを好みに調整し、「OK」で起動します。</li>
+      <li>ナビゲーター → エキスパートアドバイザ から本EAを選択</li>
+      <li>トレードしたいシンボルのチャートにドラッグ＆ドロップ</li>
+      <li>設定画面で以下を確認：
+        <ul>
+          <li>✅ <strong>自動売買を許可する</strong> にチェック</li>
+          <li>✅ <strong>アルゴリズム取引</strong> を有効化（必要に応じて）</li>
+        </ul>
+      </li>
+      <li>パラメータを調整し、「OK」で起動</li>
     </ol>
 
+    <h3>2-3. 初回起動確認</h3>
+    <pre>
+// エキスパートログに以下が表示されればOK
+=== EA v5.00 (Spread-Adjusted RR) ===
+EA initialized successfully
+    </pre>
+
     <div class="note">
-      <strong>スコープ：</strong>
-      EAはそのチャートのシンボル（<code>_Symbol</code>）と、MagicNumber条件に合致する注文/ポジションのみを管理します。[file:1]
+      <strong>重要：</strong>
+      EAは適用したチャートの銘柄（<code>_Symbol</code>）と、指定した<code>MagicNumber</code>に一致する注文・ポジションのみを管理します。
     </div>
   </div>
 
   <div class="section" id="params">
-    <h2>3. パラメータ詳細</h2>
+    <h2>3. パラメータ完全ガイド // PARAMETERS</h2>
 
-    <h3>3-1. FX / メタル向けSL設定</h3>
+    <h3>3-1. FX設定</h3>
     <table>
-      <tr><th>項目</th><th>説明</th></tr>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
       <tr>
-        <td>StopLossPips</td>
-        <td>FX・インデックス用のSL距離（pips）。30なら30pips分をSL距離として扱います。[file:1]</td>
-      </tr>
-      <tr>
-        <td>StopLossDollars</td>
-        <td>メタル（XAU/XAG/GOLD/SILVER）用のSL距離（USD）。10.0なら10ドル値動きをSL距離として使用します。[file:1]</td>
+        <td><code>StopLossPips</code></td>
+        <td>30</td>
+        <td>FX通貨ペアとインデックスで使用するSL距離（pips単位）。例：30なら30pips分の距離をSLとして設定</td>
       </tr>
     </table>
 
-    <h3>3-2. 共通設定</h3>
+    <h3>3-2. ゴールド/シルバー設定</h3>
     <table>
-      <tr><th>項目</th><th>説明</th></tr>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
       <tr>
-        <td>RiskRewardRatio</td>
-        <td>リスクリワード比率。1.5なら、SL距離1に対してTP距離1.5となるようTPを自動計算します。[file:1]</td>
-      </tr>
-      <tr>
-        <td>TimerInterval</td>
-        <td>OnTimer呼び出し間隔（ミリ秒）。注文監視・パネル更新の頻度を制御します。[file:1]</td>
-      </tr>
-      <tr>
-        <td>MagicNumber</td>
-        <td>管理対象マジック。0なら「マジック0＆同一シンボル」のみ管理対象になります。[file:1]</td>
+        <td><code>StopLossDollars</code></td>
+        <td>5.0</td>
+        <td>メタル（XAU/XAG/GOLD/SILVER）で使用するSL距離（USD単位）。例：5.0なら5ドルの値動きをSL距離として使用</td>
       </tr>
     </table>
 
-    <h3>3-3. 自動リスクモジュール</h3>
+    <h3>3-3. 共通設定</h3>
     <table>
-      <tr><th>項目</th><th>説明</th></tr>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
       <tr>
-        <td>EnableAutoRiskPercent</td>
-        <td>口座残高に対するリスク％による自動ロット計算を有効化します。[file:1]</td>
+        <td><code>RiskRewardRatio</code></td>
+        <td>1.0</td>
+        <td>リスクリワード比率。1.5なら「SL距離1に対してTP距離1.5」となります。v5.00ではスプレッドを含めた実リスク距離を基準に計算</td>
       </tr>
       <tr>
-        <td>RiskPercent</td>
-        <td>1トレードあたりの許容リスク％。例：1.0なら残高の1％が最大損失になるようロットを決定。[file:1]</td>
+        <td><code>TimerInterval</code></td>
+        <td>1000</td>
+        <td>タイマー実行間隔（ミリ秒）。注文監視とパネル更新の頻度を制御。1000=1秒ごと</td>
+      </tr>
+      <tr>
+        <td><code>MagicNumber</code></td>
+        <td>0</td>
+        <td>管理対象のマジックナンバー。0の場合は「マジック0かつ同一シンボル」の注文・ポジションを管理</td>
       </tr>
     </table>
 
-    <h3>3-4. 成行ライン＆パネルの外観</h3>
+    <h3>3-4. 自動リスク設定 ⭐ NEW</h3>
     <table>
-      <tr><th>項目</th><th>説明</th></tr>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
       <tr>
-        <td>LockMarketLines</td>
-        <td>false：価格に追随する自動モード。true：ラインをドラッグで固定するマニュアルモード。[file:1]</td>
+        <td><code>EnableAutoRiskPercent</code></td>
+        <td>true</td>
+        <td><strong>自動リスク計算の有効化</strong><br>
+        ✅ true：口座残高とRiskPercentから最適ロットを自動計算<br>
+        ❌ false：ManualLotSizeで指定した固定ロットを使用</td>
       </tr>
       <tr>
-        <td>LineStyleSL / LineWidthSL</td>
-        <td>SLラインの線種と太さ。[file:1]</td>
+        <td><code>RiskPercent</code></td>
+        <td>1.0</td>
+        <td>1トレードあたりの許容リスク（％）。1.0なら口座残高の1％が最大損失になるようロットを計算。EnableAutoRiskPercent=trueの時のみ有効</td>
       </tr>
       <tr>
-        <td>LineStyleTP / LineWidthTP</td>
-        <td>TPラインの線種と太さ。[file:1]</td>
-      </tr>
-      <tr>
-        <td>PanelFontSize / PanelTextColor</td>
-        <td>右下情報パネルのフォントサイズとテキストカラー。[file:1]</td>
-      </tr>
-      <tr>
-        <td>ButtonWidth / ButtonHeight</td>
-        <td>BUY/SELL/EXEボタンのサイズ。[file:1]</td>
+        <td><code>ManualLotSize</code></td>
+        <td>0.01</td>
+        <td><strong>手動ロットサイズ</strong>。EnableAutoRiskPercent=falseの時に使用する固定ロット。自動リスク計算を使わない場合に有用</td>
       </tr>
     </table>
 
-    <h3>3-5. 詳細挙動</h3>
+    <div class="highlight-box">
+      <strong>🔥 v5.00新機能：リスクモード切替</strong><br>
+      <code>EnableAutoRiskPercent</code> を切り替えることで、以下の2つのモードを選択できます：
+      <ul style="margin: 8px 0 0 1.2em;">
+        <li><strong>自動リスクモード（true）</strong>：毎回最適なロットを自動計算。口座残高が変動してもリスク％を一定に保つ</li>
+        <li><strong>手動ロットモード（false）</strong>：常に同じロットでトレード。シンプルな運用やバックテストに最適</li>
+      </ul>
+    </div>
+
+    <h3>3-5. 成行ライン設定</h3>
     <table>
-      <tr><th>項目</th><th>説明</th></tr>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
       <tr>
-        <td>EnableOnTradeTransaction</td>
-        <td>true：<code>OnTradeTransaction</code>イベントを使ったリアルタイム管理モード。false：OnTimer主体の監視モード。[file:1]</td>
+        <td><code>LockMarketLines</code></td>
+        <td>false</td>
+        <td><strong>ライン固定モード</strong><br>
+        false：価格に追随して自動更新（おすすめ）<br>
+        true：ラインを固定し、手動でドラッグ調整可能</td>
+      </tr>
+    </table>
+
+    <h3>3-6. 成行ライン表示設定</h3>
+    <table>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
+      <tr>
+        <td><code>LineStyleSL</code></td>
+        <td>STYLE_SOLID</td>
+        <td>SLラインのスタイル（実線/破線/点線など）</td>
+      </tr>
+      <tr>
+        <td><code>LineWidthSL</code></td>
+        <td>1</td>
+        <td>SLラインの太さ（ピクセル）</td>
+      </tr>
+      <tr>
+        <td><code>LineStyleTP</code></td>
+        <td>STYLE_SOLID</td>
+        <td>TPラインのスタイル</td>
+      </tr>
+      <tr>
+        <td><code>LineWidthTP</code></td>
+        <td>1</td>
+        <td>TPラインの太さ（ピクセル）</td>
+      </tr>
+    </table>
+
+    <h3>3-7. パネル設定</h3>
+    <table>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
+      <tr>
+        <td><code>PanelFontSize</code></td>
+        <td>12</td>
+        <td>情報パネルのフォントサイズ</td>
+      </tr>
+      <tr>
+        <td><code>PanelTextColor</code></td>
+        <td>clrLime</td>
+        <td>情報パネルのテキストカラー</td>
+      </tr>
+      <tr>
+        <td><code>ButtonWidth</code></td>
+        <td>75</td>
+        <td>BUY/SELL/EXEボタンの幅（ピクセル）</td>
+      </tr>
+      <tr>
+        <td><code>ButtonHeight</code></td>
+        <td>25</td>
+        <td>BUY/SELL/EXEボタンの高さ（ピクセル）</td>
+      </tr>
+    </table>
+
+    <h3>3-8. 詳細設定</h3>
+    <table>
+      <tr><th>パラメータ</th><th>デフォルト</th><th>説明</th></tr>
+      <tr>
+        <td><code>EnableOnTradeTransaction</code></td>
+        <td>true</td>
+        <td>OnTradeTransactionイベントの有効化。trueでリアルタイム管理、falseでタイマー主体の管理</td>
       </tr>
     </table>
 
     <div class="note">
-      <strong>初期プリセット案：</strong>
-      <code>RiskPercent=1.0</code>、<code>StopLossPips=30</code>、<code>StopLossDollars=10</code>、<code>RiskRewardRatio=2.0</code> あたりから始めると挙動が把握しやすくなります。[file:1]
+      <strong>推奨初期設定：</strong><br>
+      <code>RiskPercent=1.0</code>、<code>StopLossPips=30</code>、<code>StopLossDollars=5.0</code>、<code>RiskRewardRatio=2.0</code>、<code>EnableAutoRiskPercent=true</code> から始めると挙動を把握しやすいです。
     </div>
   </div>
 
-  <div class="section" id="panel">
-    <h2>4. パネルとUI構成</h2>
+  <div class="section" id="ui">
+    <h2>4. UI構成とパネル解説 // USER INTERFACE</h2>
 
-    <h3>4-1. 情報パネル（右下HUD）</h3>
-    <p>起動後、チャート右下にHUD風のテキストパネルが表示されます。[file:1]</p>
-    <ul>
-      <li><code>===== EA v4.73 =====</code>：バージョン表示。[file:1]</li>
-      <li><code>Type: Gold/Silver</code> または <code>Type: FX/Index</code>：シンボル種別。[file:1]</li>
-      <li><code>Spread: x.x pips</code>：現在スプレッド（pips換算）。[file:1]</li>
-      <li><code>Mode: RealTime / Timer</code>：イベント駆動モードかタイマーモードか。[file:1]</li>
-      <li><code>Risk: x.x% (金額)</code>：RiskPercentと現在残高から算出した許容損失額。[file:1]</li>
-      <li><code>SL: 30 pips / RR: 1.50</code> 等：SL距離とRR。[file:1]</li>
-      <li>AutoRisk有効時：<code>Lot: xx.xx</code> と <code>Loss: 金額</code> を同時表示。[file:1]</li>
-      <li><code>Pos/Ord: 全体ポジション数 / 全体注文数</code>。[file:1]</li>
-      <li><code>Managed: EA管理対象ポジション数 / EA管理対象注文数</code>。[file:1]</li>
-    </ul>
+    <h3>4-1. 情報パネル（チャート右下）</h3>
+    <p>EA起動後、チャート右下にリアルタイム情報パネルが表示されます。</p>
+
+    <h4>パネル表示項目：</h4>
+    <table>
+      <tr><th>表示項目</th><th>説明</th></tr>
+      <tr>
+        <td><code>===== EA v5.00 =====</code></td>
+        <td>EAバージョン表示</td>
+      </tr>
+      <tr>
+        <td><code>Type: Gold/Silver</code><br>または<br><code>Type: FX/Index</code></td>
+        <td>現在のシンボル種別。ゴールド/シルバーかFX/インデックスかを自動判別</td>
+      </tr>
+      <tr>
+        <td><code>Spread: x.x pips</code></td>
+        <td>現在のスプレッド（pips換算）⭐ v5.00新規追加</td>
+      </tr>
+      <tr>
+        <td><code>Mode: RealTime</code><br>または<br><code>Mode: Timer</code></td>
+        <td>OnTradeTransaction有効時は「RealTime」、無効時は「Timer」と表示</td>
+      </tr>
+      <tr>
+        <td><code>Risk: x.x% (金額 通貨)</code><br>または<br><code>Risk: Manual (x.xx lot)</code></td>
+        <td><strong>リスクモード表示</strong> ⭐ v5.00新規追加<br>
+        自動リスクON時：RiskPercentと許容損失額<br>
+        自動リスクOFF時：「Manual」とManualLotSize</td>
+      </tr>
+      <tr>
+        <td><code>SL: 30 pips / RR: 2.00</code><br>または<br><code>SL: 5.00 USD / RR: 2.00</code></td>
+        <td>設定されているSL距離とリスクリワード比率</td>
+      </tr>
+      <tr>
+        <td><code>Lot: x.xx</code><br><code>Loss: xxxx 通貨</code></td>
+        <td>自動リスクON時のみ表示。スプレッド込みで計算された最適ロットと想定損失額</td>
+      </tr>
+      <tr>
+        <td><code>Pos/Ord: x/x</code></td>
+        <td>口座全体のポジション数/注文数</td>
+      </tr>
+      <tr>
+        <td><code>Managed: x/x</code></td>
+        <td>このEAが管理しているポジション数/注文数</td>
+      </tr>
+    </table>
 
     <h3>4-2. BUY / SELL / EXE ボタン</h3>
-    <p>
-      情報パネルの下に、右から <strong>EXE（オレンジ）</strong>・<strong>SELL（赤）</strong>・<strong>BUY（青）</strong> の順でボタンが並びます。[file:1]
-    </p>
-    <ul>
-      <li>BUY：BUY用SL/TPラインを表示・切り替え。[file:1]</li>
-      <li>SELL：SELL用SL/TPラインを表示・切り替え。[file:1]</li>
-      <li>EXE：表示中ラインからロットを自動計算し、成行注文を発注。[file:1]</li>
-    </ul>
+    <p>情報パネルの下部に3つのボタンが配置されます（右から順に）：</p>
+
+    <table>
+      <tr><th>ボタン</th><th>色</th><th>機能</th></tr>
+      <tr>
+        <td><strong>BUY</strong></td>
+        <td>青</td>
+        <td>BUY用のSL/TPラインとラベルを表示・トグル。もう一度押すと非表示</td>
+      </tr>
+      <tr>
+        <td><strong>SELL</strong></td>
+        <td>赤</td>
+        <td>SELL用のSL/TPラインとラベルを表示・トグル。もう一度押すと非表示</td>
+      </tr>
+      <tr>
+        <td><strong>EXE</strong></td>
+        <td>オレンジ</td>
+        <td>表示中のSL/TPラインから最適ロットを計算し、成行注文を実行</td>
+      </tr>
+    </table>
+
+    <h3>4-3. チャート上ラベル表示 ⭐ v5.00新機能</h3>
+    <p>BUYまたはSELLボタンを押すと、以下のラベルがチャート上に表示されます：</p>
+
+    <table>
+      <tr><th>ラベル</th><th>色</th><th>位置</th><th>内容</th></tr>
+      <tr>
+        <td><strong>TP金額</strong></td>
+        <td>オレンジ</td>
+        <td>TPライン付近</td>
+        <td><code>+xxxx</code> 形式で想定利益額を表示</td>
+      </tr>
+      <tr>
+        <td><strong>SL金額</strong></td>
+        <td>水色</td>
+        <td>SLライン付近</td>
+        <td><code>-xxxx</code> 形式で想定損失額を表示</td>
+      </tr>
+      <tr>
+        <td><strong>情報ラベル</strong></td>
+        <td>白</td>
+        <td>エントリーとSLの中間</td>
+        <td><code>Lot:x.xx / RR:x.xx</code> 形式でロットとRRを表示</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box">
+      <strong>💡 ラベル表示の利点</strong><br>
+      エントリー前に想定損益とロットを視覚的に確認できるため、「このトレードは自分のルールに合っているか？」を直感的に判断できます。
+    </div>
   </div>
 
-  <div class="section" id="market-flow">
-    <h2>5. 成行エントリー手順</h2>
+  <div class="section" id="market">
+    <h2>5. 成行エントリー完全フロー // MARKET ORDER FLOW</h2>
 
-    <h3>5-1. ワンクリックフロー</h3>
+    <h3>5-1. 基本的なワンクリックフロー</h3>
     <ol>
-      <li>チャートを分析し、エントリーポイントが決まったら <strong>BUY</strong> または <strong>SELL</strong> ボタンをクリック。</li>
-      <li>チャート上に、赤いSLラインと緑のTPラインが自動生成されます。[file:1]</li>
-      <li>ライン付近にはラベルが表示されます。[file:1]
+      <li><strong>チャート分析</strong>：テクニカル分析でエントリーポイントを決定</li>
+      <li><strong>方向選択</strong>：
         <ul>
-          <li>TP付近：<code>+金額</code>（想定利益額）。[file:1]</li>
-          <li>SL付近：<code>-金額</code>（想定損失額）。[file:1]</li>
-          <li>中央：<code>Lot: xx.xx / RR: yy.yy</code>。[file:1]</li>
+          <li>買いたい場合：<code>BUY</code> ボタンをクリック</li>
+          <li>売りたい場合：<code>SELL</code> ボタンをクリック</li>
         </ul>
       </li>
-      <li>表示される損失額・利益額・RR・ロットが自分のルールに合っているか確認。</li>
-      <li>OKなら <strong>EXE</strong> ボタンをクリックし、EAに成行発注を任せます。[file:1]</li>
-      <li>発注成功時、ログにメッセージが出力され、SL/TPラインとラベルは自動でクリアされます。[file:1]</li>
+      <li><strong>ライン表示確認</strong>：チャート上に以下が表示されます
+        <ul>
+          <li>🔴 赤いSLライン（ストップロス価格）</li>
+          <li>🟢 緑のTPライン（テイクプロフィット価格）</li>
+          <li>🏷️ 水色のSL金額ラベル（<code>-xxxx</code>）</li>
+          <li>🏷️ オレンジのTP金額ラベル（<code>+xxxx</code>）</li>
+          <li>🏷️ 白い情報ラベル（<code>Lot:x.xx / RR:x.xx</code>）</li>
+        </ul>
+      </li>
+      <li><strong>確認</strong>：表示された内容を確認
+        <ul>
+          <li>想定損失額が許容範囲内か？</li>
+          <li>RRが設定通りか？</li>
+          <li>ロットサイズが適切か？</li>
+        </ul>
+      </li>
+      <li><strong>実行</strong>：問題なければ <code>EXE</code> ボタンをクリック</li>
+      <li><strong>注文完了</strong>：
+        <ul>
+          <li>成行注文が発注される</li>
+          <li>SL/TPが設定される</li>
+          <li>ラインとラベルが自動でクリアされる</li>
+          <li>ログに <code>[Market Execute] Success. Lot=x.xx</code> と表示される</li>
+        </ul>
+      </li>
     </ol>
 
+    <h3>5-2. LockMarketLinesモードの使い分け</h3>
+
+    <h4>A. 自動追随モード（LockMarketLines = false）推奨</h4>
+    <ul>
+      <li>価格が動くたびにSL/TPラインが自動更新される</li>
+      <li>常に現在価格から一定のSL距離・RRを保つ</li>
+      <li>スキャルピングや短期トレードに最適</li>
+      <li>「今すぐ最適な位置でエントリーしたい」場合に便利</li>
+    </ul>
+
+    <h4>B. 手動ロックモード（LockMarketLines = true）</h4>
+    <ul>
+      <li>ラインが固定され、手動でドラッグ調整可能</li>
+      <li>「ここまで来たらエントリー」という指定価格での成行に使える</li>
+      <li>特定のサポート/レジスタンスを基準にしたい場合に便利</li>
+      <li>ライン位置から損益金額とRRを再計算して表示</li>
+    </ul>
+
     <div class="note">
-      <strong>制限：</strong>
-      AutoRisk（<code>EnableAutoRiskPercent</code>）が false の場合、EXE機能はエラーとなり使用できません。[file:1]
+      <strong>ヒント：</strong>
+      最初は <code>LockMarketLines = false</code> で挙動を確認してから、必要に応じて true に切り替えるのがおすすめです。
     </div>
 
-    <h3>5-2. LockMarketLinesの挙動</h3>
-    <ul>
-      <li><strong>false（自動追随モード）</strong>：
-        価格が動くたびにSL/TPラインも再計算され、常に一定SL距離＆RRを保ったまま最新価格でEXEできます。[file:1]
-      </li>
-      <li><strong>true（手動ロックモード）</strong>：
-        ラインは固定され、ユーザーがドラッグした位置を保持。UpdateMarketLinesはその位置から損益金額とRRのみ再計算します。[file:1]
-      </li>
-    </ul>
+    <h3>5-3. 自動リスクON/OFF時の挙動</h3>
+
+    <h4>自動リスクON（EnableAutoRiskPercent = true）の場合：</h4>
+    <pre>
+// 計算ロジック
+1. スプレッドを含めた実SL距離を計算
+   BUY: 実SL距離 = Ask - SL価格
+   SELL: 実SL距離 = SL価格 - Bid
+
+2. 口座残高 × RiskPercent から許容損失額を算出
+
+3. 最適ロット = 許容損失額 ÷ (実SL距離あたりの損失額)
+
+4. 計算されたロットで成行発注
+    </pre>
+
+    <h4>自動リスクOFF（EnableAutoRiskPercent = false）の場合：</h4>
+    <pre>
+// 計算ロジック
+1. ManualLotSize で指定された固定ロットを使用
+
+2. そのロットでの想定損益を計算してラベル表示
+
+3. ManualLotSize で成行発注
+    </pre>
+
+    <div class="highlight-box">
+      <strong>🎯 どちらを選ぶべきか？</strong>
+      <ul style="margin: 8px 0 0 1.2em;">
+        <li><strong>自動リスクON</strong>：口座残高が変動しても常に一定のリスク％を維持したい場合。リアル運用推奨</li>
+        <li><strong>自動リスクOFF</strong>：シンプルに固定ロットで運用したい場合。バックテストやデモ検証に便利</li>
+      </ul>
+    </div>
   </div>
 
   <div class="section" id="pending">
-    <h2>6. 指値注文＆既存ポジション管理</h2>
+    <h2>6. 指値注文とポジション管理 // PENDING ORDERS & POSITIONS</h2>
 
-    <h3>6-1. 指値・逆指値注文</h3>
+    <h3>6-1. 指値・逆指値注文の自動管理</h3>
+    <p>MT5の注文機能で <code>BUY LIMIT</code>、<code>SELL LIMIT</code>、<code>BUY STOP</code>、<code>SELL STOP</code> を発注した場合、EAが自動的に検出して管理します。</p>
+
+    <h4>管理フロー：</h4>
     <ol>
-      <li>任意の価格で BUY LIMIT / SELL LIMIT / BUY STOP / SELL STOP を発注します。</li>
-      <li>その注文がチャートシンボルかつMagic条件に合えば、EAがOnTimer/OnTradeTransactionで検出します。[file:1]</li>
-      <li>SL/TPが両方0：
+      <li><strong>検出</strong>：OnTimer または OnTradeTransaction で新規注文を検出</li>
+      <li><strong>条件確認</strong>：
         <ul>
-          <li>StopLossPips / StopLossDollars と RiskRewardRatio からSL/TPを自動設定。[file:1]</li>
+          <li>シンボルが一致しているか？</li>
+          <li>MagicNumberが条件に合うか？</li>
         </ul>
       </li>
-      <li>SLのみ入っていてTPが無い・ズレている：
+      <li><strong>SL/TP設定</strong>：
         <ul>
-          <li>SL距離 × RR から「あるべきTP」を計算し、TPのみ修正します。[file:1]</li>
+          <li>SL/TPが両方0の場合 → 自動でSL/TPを計算して設定</li>
+          <li>SLのみ設定済みの場合 → RRに基づいてTPを再計算して修正</li>
         </ul>
       </li>
-      <li>AutoRisk有効時：
+      <li><strong>ロット調整</strong>（自動リスクON時のみ）：
         <ul>
-          <li>CalcOptimalLotでロットを再計算し、ズレていれば一旦削除→新ロットで再発注（ReplaceOrder）。[file:1]</li>
+          <li>現在のロットが最適ロットと異なる場合</li>
+          <li>注文を一旦削除して最適ロットで再発注（ReplaceOrder）</li>
         </ul>
       </li>
     </ol>
 
-    <h3>6-2. 既存ポジション</h3>
+    <h3>6-2. 既存ポジションの管理</h3>
+    <p>指値注文が約定してポジションになった場合、または手動で成行注文した場合も自動管理されます。</p>
+
+    <h4>管理対象：</h4>
     <ul>
-      <li>SL/TP両方0：初期SL/TPを計算し、PositionModifyで設定します。[file:1]</li>
-      <li>SLはあるがTPがRR通りでない：
+      <li><strong>SL/TP未設定のポジション</strong>：
         <ul>
-          <li>SL距離 × RiskRewardRatio からTPを再計算し、必要に応じて修正します。[file:1]</li>
-          <li>ストップレベルに抵触する場合は、AdjustSLTPForStopLevelで微調整してから反映します。[file:1]</li>
+          <li>エントリー価格から適切なSL/TPを計算</li>
+          <li>PositionModify で設定</li>
+        </ul>
+      </li>
+      <li><strong>TPがRR通りでないポジション</strong>：
+        <ul>
+          <li>現在のSL距離からRRに基づいた正しいTPを再計算</li>
+          <li>ストップレベルを考慮して調整</li>
+          <li>必要に応じて修正</li>
         </ul>
       </li>
     </ul>
+
+    <div class="note">
+      <strong>注意：</strong>
+      v5.00では、成行注文で既にSL/TPが設定されている場合、そのまま維持します（ライン位置を尊重）。
+      指値注文から約定したポジションのみRR再計算の対象となります。
+    </div>
+
+    <h3>6-3. 実際の運用例</h3>
+    <pre>
+// シナリオ1：指値注文を手動発注
+1. チャートで指値価格を決める
+2. MT5標準機能で BUY LIMIT を発注（SL/TP未設定）
+3. EAが検出して自動的にSL/TPを設定
+4. 自動リスクONの場合、ロットも最適化
+
+// シナリオ2：EAのBUYボタン経由で成行発注
+1. BUYボタン → EXEボタンで成行発注
+2. 発注時点で最適なSL/TP/ロットが設定済み
+3. 以後はそのままキープ（RR維持）
+
+// シナリオ3：手動で成行発注
+1. MT5標準機能で成行注文（SL/TP未設定）
+2. EAが検出して自動的にSL/TPを設定
+3. RRに基づいたTPを計算して反映
+    </pre>
+  </div>
+
+  <div class="section" id="spread">
+    <h2>7. スプレッド込みRR計算の詳細 // SPREAD-ADJUSTED RR</h2>
+
+    <h3>7-1. なぜスプレッドを考慮する必要があるのか？</h3>
+    <p>
+      成行注文では、BuyはAsk価格、SellはBid価格でエントリーします。
+      しかし、SL価格は常にBid（Buy時）またはAsk（Sell時）を基準とするため、
+      <strong>実際のリスク距離にはスプレッドが含まれます</strong>。
+    </p>
+
+    <div class="highlight-box">
+      <strong>具体例：</strong><br>
+      パラメータ設定：<code>StopLossPips = 30</code>、<code>RiskRewardRatio = 2.0</code><br>
+      現在価格：<code>Bid = 1.10000</code>、<code>Ask = 1.10002</code>（スプレッド2pips）<br><br>
+      
+      <strong>従来のEA（スプレッド未考慮）：</strong><br>
+      Buy Entry: 1.10002 (Ask)<br>
+      SL: 1.10002 - 0.00030 = 1.09972<br>
+      TP: 1.10002 + 0.00060 = 1.10062<br>
+      → 実際のリスク距離 = Ask - SL = 1.10002 - 1.09972 = <strong>30pips</strong>... ではない！<br>
+      → 実際は SL発動時はBidで判定されるため、実リスク = 1.10000 - 1.09972 = <strong>28pips</strong><br>
+      → RRがズレる！<br><br>
+      
+      <strong>v5.00（スプレッド考慮）：</strong><br>
+      Buy Entry: 1.10002 (Ask)<br>
+      実際のリスク距離 = パラメータSL距離 + スプレッド = 30pips + 2pips = <strong>32pips</strong><br>
+      SL: Bid - 30pips = 1.10000 - 0.00030 = 1.09970<br>
+      TP: Ask + (32pips × 2.0) = 1.10002 + 0.00064 = 1.10066<br>
+      → 正確なRR 2.0を維持！
+    </div>
+
+    <h3>7-2. v5.00の計算ロジック</h3>
+
+    <h4>BUY注文の場合：</h4>
+    <pre>
+// エントリー価格
+Entry = Ask
+
+// SL価格（パラメータで設定した距離分だけBidから離す）
+SL = Bid - StopLossPips
+
+// 実際のリスク距離（スプレッド込み）
+実リスク距離 = Entry - SL = Ask - (Bid - StopLossPips)
+            = Ask - Bid + StopLossPips
+            = スプレッド + StopLossPips
+
+// TP距離（実リスク距離 × RR）
+TP距離 = 実リスク距離 × RiskRewardRatio
+
+// TP価格
+TP = Entry + TP距離 = Ask + (実リスク距離 × RiskRewardRatio)
+    </pre>
+
+    <h4>SELL注文の場合：</h4>
+    <pre>
+// エントリー価格
+Entry = Bid
+
+// SL価格（パラメータで設定した距離分だけAskから離す）
+SL = Ask + StopLossPips
+
+// 実際のリスク距離（スプレッド込み）
+実リスク距離 = SL - Entry = (Ask + StopLossPips) - Bid
+            = Ask - Bid + StopLossPips
+            = スプレッド + StopLossPips
+
+// TP距離（実リスク距離 × RR）
+TP距離 = 実リスク距離 × RiskRewardRatio
+
+// TP価格
+TP = Entry - TP距離 = Bid - (実リスク距離 × RiskRewardRatio)
+    </pre>
+
+    <h3>7-3. コード実装の該当箇所</h3>
+    <p><code>UpdateMarketLines()</code> 関数と <code>ShowBuyLines()</code> / <code>ShowSellLines()</code> 関数内で実装されています。</p>
+
+    <pre>
+// 例：ShowBuyLines() からの抜粋
+double ask = SymbolInfoDouble(g_ea_symbol, SYMBOL_ASK);
+double bid = SymbolInfoDouble(g_ea_symbol, SYMBOL_BID);
+double spread = ask - bid;
+
+double slDistParam = CalculateSLDistance(g_ea_symbol);
+int digits = (int)SymbolInfoInteger(g_ea_symbol, SYMBOL_DIGITS);
+
+// BUY: エントリー=Ask, SL=bid-slDistParam
+double slPrice = NormalizeDouble(bid - slDistParam, digits);
+
+// 実際のリスク距離 = Ask - SL = slDistParam + spread
+double actualSlDist = slDistParam + spread;
+double tpDist = actualSlDist * RiskRewardRatio;
+double tpPrice = NormalizeDouble(ask + tpDist, digits);
+    </pre>
+
+    <div class="note">
+      <strong>メリット：</strong>
+      スプレッドが広いゴールドや早朝の通貨ペアでも、設定したRRが正確に維持されます。
+    </div>
   </div>
 
   <div class="section" id="examples">
-    <h2>7. 設定例と運用ヒント</h2>
+    <h2>8. 運用例とベストプラクティス // BEST PRACTICES</h2>
 
-    <h3>7-1. 典型設定（例）</h3>
-    <ul>
-      <li>残高：100万円（JPY口座）</li>
-      <li>RiskPercent：1.0（1トレード最大損失1％前後）[file:1]</li>
-      <li>StopLossPips：30（FX用SL距離）[file:1]</li>
-      <li>StopLossDollars：10.0（ゴールド用SL距離）[file:1]</li>
-      <li>RiskRewardRatio：2.0（RR 1:2）[file:1]</li>
-      <li>EnableAutoRiskPercent：true</li>
-      <li>LockMarketLines：false（まずは自動追随で挙動確認）[file:1]</li>
-    </ul>
+    <h3>8-1. 推奨設定例</h3>
 
-    <h3>7-2. 実際のトレードシーケンス例</h3>
+    <h4>A. スキャルピング・デイトレード向け</h4>
+    <table>
+      <tr><th>パラメータ</th><th>推奨値</th></tr>
+      <tr><td>RiskPercent</td><td>0.5〜1.0%</td></tr>
+      <tr><td>StopLossPips</td><td>10〜30 pips</td></tr>
+      <tr><td>RiskRewardRatio</td><td>1.5〜2.0</td></tr>
+      <tr><td>EnableAutoRiskPercent</td><td>true</td></tr>
+      <tr><td>LockMarketLines</td><td>false</td></tr>
+    </table>
+
+    <h4>B. スイングトレード向け</h4>
+    <table>
+      <tr><th>パラメータ</th><th>推奨値</th></tr>
+      <tr><td>RiskPercent</td><td>1.0〜2.0%</td></tr>
+      <tr><td>StopLossPips</td><td>50〜100 pips</td></tr>
+      <tr><td>RiskRewardRatio</td><td>2.0〜3.0</td></tr>
+      <tr><td>EnableAutoRiskPercent</td><td>true</td></tr>
+      <tr><td>LockMarketLines</td><td>true</td></tr>
+    </table>
+
+    <h4>C. ゴールド専用設定</h4>
+    <table>
+      <tr><th>パラメータ</th><th>推奨値</th></tr>
+      <tr><td>RiskPercent</td><td>0.5〜1.0%</td></tr>
+      <tr><td>StopLossDollars</td><td>3.0〜10.0 USD</td></tr>
+      <tr><td>RiskRewardRatio</td><td>2.0〜3.0</td></tr>
+      <tr><td>EnableAutoRiskPercent</td><td>true</td></tr>
+      <tr><td>LockMarketLines</td><td>false</td></tr>
+    </table>
+
+    <h4>D. 固定ロット運用（バックテスト・デモ検証用）</h4>
+    <table>
+      <tr><th>パラメータ</th><th>推奨値</th></tr>
+      <tr><td>EnableAutoRiskPercent</td><td>false</td></tr>
+      <tr><td>ManualLotSize</td><td>0.01〜0.10</td></tr>
+      <tr><td>RiskRewardRatio</td><td>2.0</td></tr>
+    </table>
+
+    <h3>8-2. 実践的なトレードシーケンス</h3>
+
+    <h4>シナリオ：EURUSD でのデイトレード</h4>
     <ol>
-      <li>エントリー候補チャートにEAをセットし、上記設定を投入。</li>
-      <li>BUYボタンを押してラインを表示、Lossラベルがおよそ1万円前後、RRが2.0前後になっているか確認します。[file:1]</li>
-      <li>LockMarketLinesをtrueにしてSL/TP位置を微調整したい場合、ラインをドラッグしてから再度ラベル値をチェック。[file:1]</li>
-      <li>条件が揃ったらEXEを押して成行エントリー。以後、RRとリスク％はEAが一貫して維持します。[file:1]</li>
-      <li>他EA・裁量ポジションと混在させるときはMagicNumberを分けて干渉を避けるのが安全です。[file:1]</li>
+      <li><strong>準備</strong>：
+        <ul>
+          <li>口座残高：100万円（JPY口座）</li>
+          <li>設定：<code>RiskPercent=1.0</code>、<code>StopLossPips=30</code>、<code>RiskRewardRatio=2.0</code></li>
+        </ul>
+      </li>
+      <li><strong>分析</strong>：
+        <ul>
+          <li>サポートラインで反発の兆候を確認</li>
+          <li>買いシグナル点灯</li>
+        </ul>
+      </li>
+      <li><strong>エントリー準備</strong>：
+        <ul>
+          <li><code>BUY</code> ボタンをクリック</li>
+          <li>ラベルを確認：<code>-10,000円</code>、<code>+20,000円</code>、<code>Lot:0.30 / RR:2.00</code></li>
+        </ul>
+      </li>
+      <li><strong>実行</strong>：
+        <ul>
+          <li>損失額が想定内（残高の1％前後）であることを確認</li>
+          <li><code>EXE</code> ボタンをクリック</li>
+        </ul>
+      </li>
+      <li><strong>結果</strong>：
+        <ul>
+          <li>成行買い発注成功</li>
+          <li>SL/TP自動設定</li>
+          <li>以後はEAが自動管理</li>
+        </ul>
+      </li>
     </ol>
 
+    <h3>8-3. ベストプラクティス</h3>
+
+    <h4>✅ DO（推奨）：</h4>
+    <ul>
+      <li>最初はデモ口座で設定を試し、挙動を完全に理解してからリアル運用する</li>
+      <li>RiskPercentは口座残高の0.5〜2％程度に抑える（資金管理の基本）</li>
+      <li>スプレッドが広い時間帯（早朝・経済指標発表時）は成行エントリーを避ける</li>
+      <li>複数銘柄で運用する場合、各チャートに個別にEAを設置する</li>
+      <li>定期的にパネル表示を確認し、Managed数が想定通りか確認する</li>
+    </ul>
+
+    <h4>❌ DON'T（非推奨）：</h4>
+    <ul>
+      <li>RiskPercentを5％以上に設定する（リスクが高すぎる）</li>
+      <li>自動リスクOFFで過大なManualLotSizeを設定する</li>
+      <li>他のEAと同じMagicNumberを使う（干渉の原因）</li>
+      <li>ラベル表示を確認せずにEXEボタンを押す（想定外のロットになる可能性）</li>
+      <li>複数の時間足に同じEAを重複して設置する（管理が複雑化）</li>
+    </ul>
+
+    <h3>8-4. トラブルシューティング</h3>
+
+    <h4>Q1. EXEボタンを押してもエラーになる</h4>
+    <p><strong>A:</strong> 以下を確認してください：</p>
+    <ul>
+      <li>BUYまたはSELLボタンを押してラインが表示されているか？</li>
+      <li>自動売買が有効になっているか？</li>
+      <li>計算されたロットがMinLot未満になっていないか？（RiskPercentが小さすぎる可能性）</li>
+    </ul>
+
+    <h4>Q2. ロットが想定より小さい/大きい</h4>
+    <p><strong>A:</strong> 以下を確認してください：</p>
+    <ul>
+      <li>RiskPercentが適切か？（1.0なら残高の1％がリスク）</li>
+      <li>StopLossPips / StopLossDollars が大きすぎないか？（SL距離が大きいとロットは小さくなる）</li>
+      <li>EnableAutoRiskPercentがfalseになっていないか？（falseの場合はManualLotSizeが使われる）</li>
+    </ul>
+
+    <h4>Q3. 指値注文のSL/TPが自動設定されない</h4>
+    <p><strong>A:</strong> 以下を確認してください：</p>
+    <ul>
+      <li>注文のシンボルがEAを設置したチャートと同じか？</li>
+      <li>MagicNumberが条件に合っているか？（MagicNumber=0なら、注文もMagic=0である必要）</li>
+      <li>EnableOnTradeTransactionがfalseの場合、TimerIntervalごとの監視になるため遅延が発生する</li>
+    </ul>
+
+    <h4>Q4. ラベルが表示されない</h4>
+    <p><strong>A:</strong> 以下を確認してください：</p>
+    <ul>
+      <li>BUYまたはSELLボタンを押した後、チャートをスクロールしていないか？（ラベルは現在時刻の位置に表示される）</li>
+      <li>LockMarketLines=trueでラインが画面外にある場合、ラベルも見えない可能性がある</li>
+      <li>チャートを右クリック → オブジェクトリスト で <code>RR_EA_Panel_Label_*</code> が存在するか確認</li>
+    </ul>
+
+    <h3>8-5. ログメッセージ例</h3>
     <pre>
-// LOG SAMPLE
-EA v4.73 (Full Integrated Version) started...
+// 正常動作時のログ
+=== EA v5.00 (Spread-Adjusted RR) ===
 [Market Execute] Success. Lot=0.24
-Pos 12345 Initial SLTP set
-Order 67890 Initial SLTP set
+Pos 123456: Initial SL/TP set
+Order 789012: Initial SL/TP set
+Replaced order 345678 -> 901234
+
+// エラー時のログ
+[Market Execute] ERROR: No lines displayed. Press BUY or SELL first.
+[Market Execute] ERROR: Calculated lot 0.00 < MinLot 0.01
+[Market Execute] FAILED. Error=10015
     </pre>
   </div>
 
   <div class="footer">
-    RISKREWARDSLTPMASTER_v4.73 // CYBERPUNK EDITION
+    RISKREWARDSLTPMASTER v5.00 // SPREAD-AWARE EDITION // COPYRIGHT 2024 SYA-NON
   </div>
 </div>
 </body>
