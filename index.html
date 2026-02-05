@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>RiskRewardSLTPMaster_v4.73 ネオンマニュアル</title>
+  <style>
+    :root {
+      --bg-main: #05060b;
+      --bg-panel: rgba(5, 10, 25, 0.95);
+      --accent-cyan: #00f6ff;
+      --accent-pink: #ff2ef5;
+      --accent-purple: #a020f0;
+      --accent-yellow: #ffe066;
+      --text-main: #e5f7ff;
+      --text-muted: #7f92b3;
+      --border-soft: rgba(0, 255, 255, 0.18);
+      --shadow-neon: 0 0 12px rgba(0, 255, 255, 0.5);
+      --shadow-pink: 0 0 16px rgba(255, 46, 245, 0.55);
+      --mono: "Fira Code", "SF Mono", "Consolas", monospace;
+      --sans: "Segoe UI", "Hiragino Kaku Gothic ProN", "Meiryo", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 24px 80px;
+      font-family: var(--sans);
+      line-height: 1.8;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0, 255, 255, 0.08), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255, 46, 245, 0.08), transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(160, 32, 240, 0.12), transparent 55%),
+        linear-gradient(145deg, #020308 0%, #05060b 45%, #040312 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 2px, 3px 100%;
+      mix-blend-mode: soft-light;
+      opacity: 0.45;
+      z-index: -1;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin: 0 0 24px;
+      color: var(--accent-cyan);
+      text-shadow: var(--shadow-neon);
+    }
+
+    h1::after {
+      content: " // RISK-REWARD SL/TP MASTER v4.73";
+      font-size: 0.72rem;
+      color: var(--accent-pink);
+      margin-left: 8px;
+      opacity: 0.85;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin: 32px 0 12px;
+      color: var(--accent-yellow);
+      border-bottom: 1px solid rgba(0, 246, 255, 0.3);
+      padding-bottom: 4px;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 20px 0 8px;
+      color: var(--accent-cyan);
+    }
+
+    p {
+      margin: 8px 0;
+      color: var(--text-main);
+    }
+
+    a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      background: rgba(4, 20, 45, 0.9);
+      color: var(--accent-yellow);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 246, 255, 0.22);
+      box-shadow: 0 0 6px rgba(0, 246, 255, 0.35);
+    }
+
+    pre {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      background: radial-gradient(circle at 0 0, rgba(0, 246, 255, 0.16), transparent 60%),
+                  rgba(1, 8, 20, 0.92);
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-neon);
+      overflow-x: auto;
+      position: relative;
+    }
+
+    pre::before {
+      content: "TERMINAL";
+      position: absolute;
+      top: 4px;
+      right: 12px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .frame {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: linear-gradient(145deg,
+              rgba(1, 10, 25, 0.96),
+              rgba(3, 6, 18, 0.98));
+      border-radius: 18px;
+      border: 1px solid rgba(0, 246, 255, 0.35);
+      box-shadow:
+        0 0 0 1px rgba(255, 46, 245, 0.24),
+        0 0 48px rgba(0, 246, 255, 0.35),
+        0 0 96px rgba(160, 32, 240, 0.35);
+      padding: 22px 22px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(0, 246, 255, 0.28), transparent 60%);
+      filter: blur(4px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .frame::before {
+      top: -70px;
+      left: -40px;
+    }
+
+    .frame::after {
+      bottom: -90px;
+      right: -40px;
+      background: radial-gradient(circle, rgba(255, 46, 245, 0.3), transparent 60%);
+    }
+
+    .section {
+      margin-bottom: 32px;
+      padding: 14px 14px 18px;
+      background: radial-gradient(circle at 0 0, rgba(0, 246, 255, 0.12), transparent 55%),
+                  radial-gradient(circle at 100% 100%, rgba(255, 46, 245, 0.08), transparent 55%),
+                  rgba(2, 8, 22, 0.98);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 246, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        transparent 0,
+        rgba(0, 246, 255, 0.22) 50%,
+        transparent 100%);
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease-out;
+    }
+
+    .section:hover::before {
+      opacity: 0.7;
+    }
+
+    .note {
+      border-left: 3px solid var(--accent-pink);
+      background: linear-gradient(135deg,
+                  rgba(255, 46, 245, 0.08),
+                  rgba(0, 246, 255, 0.04));
+      padding: 8px 12px;
+      margin: 12px 0;
+      font-size: 0.9rem;
+      color: var(--accent-yellow);
+      box-shadow: 0 0 10px rgba(255, 46, 245, 0.35);
+    }
+
+    .note strong {
+      color: var(--accent-pink);
+    }
+
+    ul, ol {
+      margin: 6px 0 6px 1.4em;
+    }
+
+    li {
+      margin: 4px 0;
+      color: var(--text-main);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 8px 0 12px;
+      background: rgba(4, 12, 30, 0.96);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 22px rgba(0, 246, 255, 0.25);
+    }
+
+    th, td {
+      border: 1px solid rgba(0, 246, 255, 0.3);
+      padding: 6px 8px;
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+
+    th {
+      background: linear-gradient(135deg,
+                  rgba(0, 246, 255, 0.4),
+                  rgba(160, 32, 240, 0.7));
+      color: #02101c;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+    }
+
+    td {
+      color: var(--text-main);
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 2px 0 14px;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 246, 255, 0.5);
+      color: var(--accent-cyan);
+      background: rgba(0, 10, 25, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .chip.pink {
+      border-color: rgba(255, 46, 245, 0.65);
+      color: var(--accent-pink);
+    }
+
+    .chip.yellow {
+      border-color: rgba(255, 224, 102, 0.8);
+      color: var(--accent-yellow);
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin: 10px 0 4px;
+    }
+
+    .toc-item {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 246, 255, 0.25);
+      background: radial-gradient(circle at 0 0, rgba(0, 246, 255, 0.18), transparent 60%),
+                  rgba(2, 8, 22, 0.98);
+      font-size: 0.86rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border-color 0.16s ease-out;
+    }
+
+    .toc-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg,
+        rgba(255, 46, 245, 0.0) 0,
+        rgba(255, 46, 245, 0.35) 50%,
+        rgba(255, 224, 102, 0.0) 100%);
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease-out;
+    }
+
+    .toc-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 16px rgba(0, 246, 255, 0.45);
+      border-color: rgba(255, 46, 245, 0.8);
+    }
+
+    .toc-item:hover::before {
+      opacity: 1;
+    }
+
+    .toc-item span {
+      display: block;
+    }
+
+    .toc-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .toc-title {
+      color: var(--accent-cyan);
+    }
+
+    .footer {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 10px 60px;
+      }
+      .frame {
+        padding: 18px 14px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="frame">
+  <div class="tagline">NEO-TOKYO TRADE SUITE</div>
+  <h1>RiskRewardSLTPMaster_v4.73 使用マニュアル</h1>
+
+  <div class="chip-row">
+    <div class="chip">Auto Risk Management</div>
+    <div class="chip pink">RR FIXED SL/TP</div>
+    <div class="chip yellow">One-Click Entry</div>
+  </div>
+
+  <div class="section" id="toc">
+    <h2>0. INDEX</h2>
+    <div class="toc">
+      <div class="toc-item" onclick="location.hash='#overview'">
+        <span class="toc-label">SECTION 1</span>
+        <span class="toc-title">EAの概要</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#install'">
+        <span class="toc-label">SECTION 2</span>
+        <span class="toc-title">導入とセットアップ</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#params'">
+        <span class="toc-label">SECTION 3</span>
+        <span class="toc-title">パラメータ詳細</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#panel'">
+        <span class="toc-label">SECTION 4</span>
+        <span class="toc-title">パネルとUI</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#market-flow'">
+        <span class="toc-label">SECTION 5</span>
+        <span class="toc-title">成行エントリー手順</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#pending'">
+        <span class="toc-label">SECTION 6</span>
+        <span class="toc-title">指値・ポジション管理</span>
+      </div>
+      <div class="toc-item" onclick="location.hash='#examples'">
+        <span class="toc-label">SECTION 7</span>
+        <span class="toc-title">設定例と運用ヒント</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="overview">
+    <h2>1. EAの概要</h2>
+    <p>
+      本EAは「ストップロス距離 × リスクリワード比率 × 口座リスク％」から、SL/TPとロットを自動で組み上げるリスク管理特化型エンジンです。[file:1]
+    </p>
+    <ul>
+      <li>FX通貨ペア、インデックス、ゴールド/シルバー（XAU/XAG）を判別し、銘柄に最適化されたSL距離を自動計算します。[file:1]</li>
+      <li>口座残高とRiskPercentから許容損失額を算出し、CalcOptimalLotで適正ロットを逆算します。[file:1]</li>
+      <li>チャート上のBUY/SELLボタンとSL/TPラインから、損失額・利益額・RR・ロットをリアルタイム表示します。[file:1]</li>
+      <li>指値注文と既存ポジションのSL/TP・ロットを監視し、RRとリスク％がブレないよう自動修正します。[file:1]</li>
+    </ul>
+    <div class="note">
+      <strong>想定ユーザー：</strong>
+      「毎回電卓を叩かずに、常に口座残高の〇％リスク＆RR固定でトレードしたい裁量トレーダー」。[file:1]
+    </div>
+  </div>
+
+  <div class="section" id="install">
+    <h2>2. 導入とセットアップ</h2>
+
+    <h3>2-1. ファイル配置</h3>
+    <ol>
+      <li>MT5を起動し、<code>ファイル &gt; データフォルダを開く</code> をクリック。</li>
+      <li><code>MQL5/Experts</code> フォルダを開き、<code>RiskRewardSLTPMaster_v4.73.mq5</code> をコピーします。[file:1]</li>
+      <li>MetaEditorでコンパイルするか、MT5を再起動してEAリストを更新します。</li>
+    </ol>
+
+    <h3>2-2. チャートへの適用</h3>
+    <ol>
+      <li>ナビゲータ ＞ エキスパートアドバイザ から、本EAを目的のシンボルチャートへドラッグ＆ドロップ。</li>
+      <li>「自動売買を許可する」にチェックを入れ、必要に応じてアルゴリズム取引も有効化。</li>
+      <li>パラメータを好みに調整し、「OK」で起動します。</li>
+    </ol>
+
+    <div class="note">
+      <strong>スコープ：</strong>
+      EAはそのチャートのシンボル（<code>_Symbol</code>）と、MagicNumber条件に合致する注文/ポジションのみを管理します。[file:1]
+    </div>
+  </div>
+
+  <div class="section" id="params">
+    <h2>3. パラメータ詳細</h2>
+
+    <h3>3-1. FX / メタル向けSL設定</h3>
+    <table>
+      <tr><th>項目</th><th>説明</th></tr>
+      <tr>
+        <td>StopLossPips</td>
+        <td>FX・インデックス用のSL距離（pips）。30なら30pips分をSL距離として扱います。[file:1]</td>
+      </tr>
+      <tr>
+        <td>StopLossDollars</td>
+        <td>メタル（XAU/XAG/GOLD/SILVER）用のSL距離（USD）。10.0なら10ドル値動きをSL距離として使用します。[file:1]</td>
+      </tr>
+    </table>
+
+    <h3>3-2. 共通設定</h3>
+    <table>
+      <tr><th>項目</th><th>説明</th></tr>
+      <tr>
+        <td>RiskRewardRatio</td>
+        <td>リスクリワード比率。1.5なら、SL距離1に対してTP距離1.5となるようTPを自動計算します。[file:1]</td>
+      </tr>
+      <tr>
+        <td>TimerInterval</td>
+        <td>OnTimer呼び出し間隔（ミリ秒）。注文監視・パネル更新の頻度を制御します。[file:1]</td>
+      </tr>
+      <tr>
+        <td>MagicNumber</td>
+        <td>管理対象マジック。0なら「マジック0＆同一シンボル」のみ管理対象になります。[file:1]</td>
+      </tr>
+    </table>
+
+    <h3>3-3. 自動リスクモジュール</h3>
+    <table>
+      <tr><th>項目</th><th>説明</th></tr>
+      <tr>
+        <td>EnableAutoRiskPercent</td>
+        <td>口座残高に対するリスク％による自動ロット計算を有効化します。[file:1]</td>
+      </tr>
+      <tr>
+        <td>RiskPercent</td>
+        <td>1トレードあたりの許容リスク％。例：1.0なら残高の1％が最大損失になるようロットを決定。[file:1]</td>
+      </tr>
+    </table>
+
+    <h3>3-4. 成行ライン＆パネルの外観</h3>
+    <table>
+      <tr><th>項目</th><th>説明</th></tr>
+      <tr>
+        <td>LockMarketLines</td>
+        <td>false：価格に追随する自動モード。true：ラインをドラッグで固定するマニュアルモード。[file:1]</td>
+      </tr>
+      <tr>
+        <td>LineStyleSL / LineWidthSL</td>
+        <td>SLラインの線種と太さ。[file:1]</td>
+      </tr>
+      <tr>
+        <td>LineStyleTP / LineWidthTP</td>
+        <td>TPラインの線種と太さ。[file:1]</td>
+      </tr>
+      <tr>
+        <td>PanelFontSize / PanelTextColor</td>
+        <td>右下情報パネルのフォントサイズとテキストカラー。[file:1]</td>
+      </tr>
+      <tr>
+        <td>ButtonWidth / ButtonHeight</td>
+        <td>BUY/SELL/EXEボタンのサイズ。[file:1]</td>
+      </tr>
+    </table>
+
+    <h3>3-5. 詳細挙動</h3>
+    <table>
+      <tr><th>項目</th><th>説明</th></tr>
+      <tr>
+        <td>EnableOnTradeTransaction</td>
+        <td>true：<code>OnTradeTransaction</code>イベントを使ったリアルタイム管理モード。false：OnTimer主体の監視モード。[file:1]</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>初期プリセット案：</strong>
+      <code>RiskPercent=1.0</code>、<code>StopLossPips=30</code>、<code>StopLossDollars=10</code>、<code>RiskRewardRatio=2.0</code> あたりから始めると挙動が把握しやすくなります。[file:1]
+    </div>
+  </div>
+
+  <div class="section" id="panel">
+    <h2>4. パネルとUI構成</h2>
+
+    <h3>4-1. 情報パネル（右下HUD）</h3>
+    <p>起動後、チャート右下にHUD風のテキストパネルが表示されます。[file:1]</p>
+    <ul>
+      <li><code>===== EA v4.73 =====</code>：バージョン表示。[file:1]</li>
+      <li><code>Type: Gold/Silver</code> または <code>Type: FX/Index</code>：シンボル種別。[file:1]</li>
+      <li><code>Spread: x.x pips</code>：現在スプレッド（pips換算）。[file:1]</li>
+      <li><code>Mode: RealTime / Timer</code>：イベント駆動モードかタイマーモードか。[file:1]</li>
+      <li><code>Risk: x.x% (金額)</code>：RiskPercentと現在残高から算出した許容損失額。[file:1]</li>
+      <li><code>SL: 30 pips / RR: 1.50</code> 等：SL距離とRR。[file:1]</li>
+      <li>AutoRisk有効時：<code>Lot: xx.xx</code> と <code>Loss: 金額</code> を同時表示。[file:1]</li>
+      <li><code>Pos/Ord: 全体ポジション数 / 全体注文数</code>。[file:1]</li>
+      <li><code>Managed: EA管理対象ポジション数 / EA管理対象注文数</code>。[file:1]</li>
+    </ul>
+
+    <h3>4-2. BUY / SELL / EXE ボタン</h3>
+    <p>
+      情報パネルの下に、右から <strong>EXE（オレンジ）</strong>・<strong>SELL（赤）</strong>・<strong>BUY（青）</strong> の順でボタンが並びます。[file:1]
+    </p>
+    <ul>
+      <li>BUY：BUY用SL/TPラインを表示・切り替え。[file:1]</li>
+      <li>SELL：SELL用SL/TPラインを表示・切り替え。[file:1]</li>
+      <li>EXE：表示中ラインからロットを自動計算し、成行注文を発注。[file:1]</li>
+    </ul>
+  </div>
+
+  <div class="section" id="market-flow">
+    <h2>5. 成行エントリー手順</h2>
+
+    <h3>5-1. ワンクリックフロー</h3>
+    <ol>
+      <li>チャートを分析し、エントリーポイントが決まったら <strong>BUY</strong> または <strong>SELL</strong> ボタンをクリック。</li>
+      <li>チャート上に、赤いSLラインと緑のTPラインが自動生成されます。[file:1]</li>
+      <li>ライン付近にはラベルが表示されます。[file:1]
+        <ul>
+          <li>TP付近：<code>+金額</code>（想定利益額）。[file:1]</li>
+          <li>SL付近：<code>-金額</code>（想定損失額）。[file:1]</li>
+          <li>中央：<code>Lot: xx.xx / RR: yy.yy</code>。[file:1]</li>
+        </ul>
+      </li>
+      <li>表示される損失額・利益額・RR・ロットが自分のルールに合っているか確認。</li>
+      <li>OKなら <strong>EXE</strong> ボタンをクリックし、EAに成行発注を任せます。[file:1]</li>
+      <li>発注成功時、ログにメッセージが出力され、SL/TPラインとラベルは自動でクリアされます。[file:1]</li>
+    </ol>
+
+    <div class="note">
+      <strong>制限：</strong>
+      AutoRisk（<code>EnableAutoRiskPercent</code>）が false の場合、EXE機能はエラーとなり使用できません。[file:1]
+    </div>
+
+    <h3>5-2. LockMarketLinesの挙動</h3>
+    <ul>
+      <li><strong>false（自動追随モード）</strong>：
+        価格が動くたびにSL/TPラインも再計算され、常に一定SL距離＆RRを保ったまま最新価格でEXEできます。[file:1]
+      </li>
+      <li><strong>true（手動ロックモード）</strong>：
+        ラインは固定され、ユーザーがドラッグした位置を保持。UpdateMarketLinesはその位置から損益金額とRRのみ再計算します。[file:1]
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" id="pending">
+    <h2>6. 指値注文＆既存ポジション管理</h2>
+
+    <h3>6-1. 指値・逆指値注文</h3>
+    <ol>
+      <li>任意の価格で BUY LIMIT / SELL LIMIT / BUY STOP / SELL STOP を発注します。</li>
+      <li>その注文がチャートシンボルかつMagic条件に合えば、EAがOnTimer/OnTradeTransactionで検出します。[file:1]</li>
+      <li>SL/TPが両方0：
+        <ul>
+          <li>StopLossPips / StopLossDollars と RiskRewardRatio からSL/TPを自動設定。[file:1]</li>
+        </ul>
+      </li>
+      <li>SLのみ入っていてTPが無い・ズレている：
+        <ul>
+          <li>SL距離 × RR から「あるべきTP」を計算し、TPのみ修正します。[file:1]</li>
+        </ul>
+      </li>
+      <li>AutoRisk有効時：
+        <ul>
+          <li>CalcOptimalLotでロットを再計算し、ズレていれば一旦削除→新ロットで再発注（ReplaceOrder）。[file:1]</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>6-2. 既存ポジション</h3>
+    <ul>
+      <li>SL/TP両方0：初期SL/TPを計算し、PositionModifyで設定します。[file:1]</li>
+      <li>SLはあるがTPがRR通りでない：
+        <ul>
+          <li>SL距離 × RiskRewardRatio からTPを再計算し、必要に応じて修正します。[file:1]</li>
+          <li>ストップレベルに抵触する場合は、AdjustSLTPForStopLevelで微調整してから反映します。[file:1]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" id="examples">
+    <h2>7. 設定例と運用ヒント</h2>
+
+    <h3>7-1. 典型設定（例）</h3>
+    <ul>
+      <li>残高：100万円（JPY口座）</li>
+      <li>RiskPercent：1.0（1トレード最大損失1％前後）[file:1]</li>
+      <li>StopLossPips：30（FX用SL距離）[file:1]</li>
+      <li>StopLossDollars：10.0（ゴールド用SL距離）[file:1]</li>
+      <li>RiskRewardRatio：2.0（RR 1:2）[file:1]</li>
+      <li>EnableAutoRiskPercent：true</li>
+      <li>LockMarketLines：false（まずは自動追随で挙動確認）[file:1]</li>
+    </ul>
+
+    <h3>7-2. 実際のトレードシーケンス例</h3>
+    <ol>
+      <li>エントリー候補チャートにEAをセットし、上記設定を投入。</li>
+      <li>BUYボタンを押してラインを表示、Lossラベルがおよそ1万円前後、RRが2.0前後になっているか確認します。[file:1]</li>
+      <li>LockMarketLinesをtrueにしてSL/TP位置を微調整したい場合、ラインをドラッグしてから再度ラベル値をチェック。[file:1]</li>
+      <li>条件が揃ったらEXEを押して成行エントリー。以後、RRとリスク％はEAが一貫して維持します。[file:1]</li>
+      <li>他EA・裁量ポジションと混在させるときはMagicNumberを分けて干渉を避けるのが安全です。[file:1]</li>
+    </ol>
+
+    <pre>
+// LOG SAMPLE
+EA v4.73 (Full Integrated Version) started...
+[Market Execute] Success. Lot=0.24
+Pos 12345 Initial SLTP set
+Order 67890 Initial SLTP set
+    </pre>
+  </div>
+
+  <div class="footer">
+    RISKREWARDSLTPMASTER_v4.73 // CYBERPUNK EDITION
+  </div>
+</div>
+</body>
+</html>
