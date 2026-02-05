@@ -487,6 +487,10 @@
         <span class="toc-label">SECTION 8</span>
         <span class="toc-title">運用例とベストプラクティス</span>
       </div>
+      <div class="toc-item" onclick="location.hash='#download'" style="border-color: var(--accent-pink); background: radial-gradient(circle at 0 0, rgba(255, 46, 245, 0.25), transparent 60%), rgba(2, 8, 22, 0.98);">
+        <span class="toc-label">SECTION 9</span>
+        <span class="toc-title" style="color: var(--accent-pink);">📥 ダウンロード</span>
+      </div>
     </div>
   </div>
 
@@ -1233,8 +1237,69 @@ Replaced order 345678 -> 901234
     </pre>
   </div>
 
+  <div class="section" id="download">
+    <h2>9. ダウンロード // DOWNLOAD</h2>
+
+    <div style="text-align: center; padding: 20px 0;">
+      <div style="display: inline-block; padding: 20px 30px; background: linear-gradient(135deg, rgba(0, 246, 255, 0.15), rgba(255, 46, 245, 0.15)); border: 2px solid var(--accent-cyan); border-radius: 12px; box-shadow: 0 0 30px rgba(0, 246, 255, 0.5); margin: 20px 0;">
+        <h3 style="margin: 0 0 16px 0; color: var(--accent-cyan); font-size: 1.4rem;">RiskRewardSLTPMaster v5.00</h3>
+        <a href="https://drive.google.com/file/d/1G2r0o9tH5GHeXvj1jwne1NHgecoElfub/view?usp=sharing" target="_blank" style="display: inline-block; padding: 14px 40px; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; box-shadow: 0 0 20px rgba(0, 246, 255, 0.6); transition: all 0.3s ease;">
+          📥 Google Driveからダウンロード
+        </a>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="border-color: var(--accent-pink); background: linear-gradient(135deg, rgba(255, 46, 245, 0.15), rgba(255, 140, 66, 0.1));">
+      <strong>⚠️ 重要事項 / IMPORTANT NOTICE</strong>
+      <ul style="margin: 12px 0 0 1.2em; line-height: 1.9;">
+        <li><strong>期間限定版：</strong>本EAは <span style="color: var(--accent-orange); font-weight: bold;">2026年3月30日まで</span> の期間限定で使用可能です</li>
+        <li><strong>自己責任：</strong>本EAの使用は完全に自己責任となります。開発者は一切の責任を負いません</li>
+        <li><strong>リスク理解：</strong>FX・CFD取引には高いリスクが伴います。必ずデモ口座で十分にテストしてから使用してください</li>
+        <li><strong>資金管理：</strong>失っても良い余剰資金の範囲内で運用してください</li>
+        <li><strong>再配布禁止：</strong>本EAの無断転載・再配布は固く禁止します</li>
+        <li><strong>サポート：</strong>本EAは無保証・ノーサポートです。マニュアルを熟読の上ご使用ください</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>📌 使用前チェックリスト：</strong><br>
+      ✅ マニュアルを最後まで読んだ<br>
+      ✅ パラメータの意味を理解した<br>
+      ✅ デモ口座で動作確認を行った<br>
+      ✅ 自分のトレードスタイルに合った設定を決めた<br>
+      ✅ リスク管理ルールを明確にした<br>
+      ✅ 全て自己責任であることを理解した
+    </div>
+
+    <h3>9-1. インストール後の初回起動手順</h3>
+    <ol>
+      <li>ダウンロードした <code>RiskRewardSLTPMaster_v5.00.ex5</code> を <code>MQL5/Experts</code> フォルダにコピー</li>
+      <li>MT5を再起動してEAリストを更新</li>
+      <li>デモ口座で最も取引量の多い銘柄（EURUSD等）のチャートに適用</li>
+      <li>パラメータは初期値のまま「OK」をクリック</li>
+      <li>BUYボタンを押してラインとラベルが表示されることを確認</li>
+      <li>ラベルの金額・ロット・RRが妥当な範囲内か確認</li>
+      <li>問題なければEXEボタンで試験発注</li>
+      <li>エキスパートログで <code>[Market Execute] Success</code> を確認</li>
+      <li>自分のトレードスタイルに合わせてパラメータを調整</li>
+      <li>十分にテストしてからリアル口座へ移行</li>
+    </ol>
+
+    <div style="text-align: center; margin: 30px 0 20px;">
+      <p style="font-size: 1.1rem; color: var(--accent-cyan); letter-spacing: 0.05em;">
+        良いトレードを！ // GOOD TRADING!
+      </p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+        リスク管理こそが、長期的な成功への唯一の道です
+      </p>
+    </div>
+  </div>
+
   <div class="footer">
-    RISKREWARDSLTPMASTER v5.00 // SPREAD-AWARE EDITION // COPYRIGHT 2024 SYA-NON
+    RISKREWARDSLTPMASTER v5.00 // SPREAD-AWARE EDITION // COPYRIGHT 2024 SYA-NON<br>
+    <span style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; display: inline-block;">
+      EXPIRATION DATE: 2026.03.30 // USE AT YOUR OWN RISK
+    </span>
   </div>
 </div>
 </body>
